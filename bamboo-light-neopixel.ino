@@ -21,42 +21,46 @@ String rawData = "no data";
 
 void setup() {
   Serial.begin(9600);
-  
-  
+
+
   // Neopixels init
   strip.begin();
-  
-  strip.setBrightness(70);
-  
+
+  strip.setBrightness(100);
+
   strip.show(); // Initialize all pixels to 'off'
-  
+
   red();
-  
+
 }
 
 void loop() {
-  
+
   if (Serial.available() > 0) {
-     
-     toWrite = Serial.parseInt();
-      
+
+      toWrite = Serial.parseInt();
+
       if(toWrite != prevWrite) {
         prevWrite = toWrite;
-        
+
+        // 1 is pass, 2 is fail (for better conversion to int that 0)
+
         if(toWrite == 1) {
           green();
-         
-        } else {
-           red(); 
+
+        } else if (toWrite == 2) {
+           red();
         }
+
         delay(100);
+
       }
-      
+
       delay(100);
-  }    
-  
+  }
+
   delay(100);
-     
+
 }
 
 void green() {
